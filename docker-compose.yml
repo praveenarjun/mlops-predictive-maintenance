@@ -1,0 +1,33 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  model-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.model_api
+    ports:
+      - "8000:8000" # Map host port 8000 to container port 8000
+    # Ensure models/ directory is copied into the container during build
+    # via Dockerfile.model_api's COPY models/ ./models/ instruction
+    environment:
+      LOG_LEVEL: INFO # Example env var for model_api
+    restart: always # Always restart if it crashes
+
+  event-consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.consumer
+    # Link to the model-api service so they can communicate by service name
+    depends_on:
+      - model-api
+    environment:
+      # Pass your Azure/ML credentials securely as environment variables
+      # These will be read by event_consumer.py using os.getenv()
+      EVENT_HUB_CONNECTION_STR: ${EVENT_HUB_CONNECTION_STR}
+      EVENT_HUB_NAME: ${EVENT_HUB_NAME}
+      COSMOS_DB_URI: ${COSMOS_DB_URI}
+      COSMOS_DB_KEY: ${COSMOS_DB_KEY}
+      # Point the consumer to the model-api service using its service name and port
+      ML_ENDPOINT_URL: http://model-api:8000/predict # Use service name 'model-api' for internal Docker network communication
+    restart: always # Always restart if it crashes

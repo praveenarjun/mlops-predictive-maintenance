@@ -1,0 +1,6 @@
+# requirements.txt inside iot-anomaly-function/
+azure-functions
+azure-cosmos  # <--- ADD THIS LINE
+# You might also add pandas and numpy here if your function's logic grows to use them
+# pandas
+# numpy

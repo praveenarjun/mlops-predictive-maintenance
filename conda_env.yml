@@ -1,0 +1,14 @@
+# conda_env.yml
+name: anomaly_env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - scikit-learn==1.7.0 # UPDATED
+    - pandas==2.0.3       # UPDATED
+    - numpy==1.26.4        # UPDATED
+    - joblib==1.3.2        # UPDATED
+    - azureml-defaults

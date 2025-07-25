@@ -1,0 +1,21 @@
+# Dockerfile.model_api
+FROM python:3.11-slim-buster 
+
+WORKDIR /app
+
+# Copy requirements first to leverage Docker cache
+COPY requirements_model_api.txt .
+RUN pip install --no-cache-dir -r requirements_model_api.txt
+
+# Copy model artifacts (the models/ directory)
+# Ensure your models/ directory is at the same level as Dockerfile.model_api
+COPY models/ ./models/ 
+
+# Copy the API script
+COPY model_api.py .
+
+# Expose the port FastAPI runs on
+EXPOSE 8000
+
+# Command to run the FastAPI app with Uvicorn
+CMD ["uvicorn", "model_api:app", "--host", "0.0.0.0", "--port", "8000"]

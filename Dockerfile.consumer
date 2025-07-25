@@ -1,0 +1,14 @@
+# Dockerfile.consumer
+FROM python:3.11-slim-buster 
+
+WORKDIR /app
+
+# Copy requirements first
+COPY requirements_consumer.txt .
+RUN pip install --no-cache-dir -r requirements_consumer.txt
+
+# Copy the consumer script 
+COPY event_consumer.py .
+# .env is handled via docker-compose environment variables
+
+CMD ["python", "event_consumer.py"]
