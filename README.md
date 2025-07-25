@@ -97,4 +97,4 @@ This project successfully demonstrates a real-time, end-to-end MLOps pipeline ca
 * **Data Quality Monitoring:** Add explicit data quality checks in the `event_consumer.py` (e.g., validate sensor ranges, detect missing fields) and send alerts for quality issues.
 
 ---
-**Contact:** [Your Name] | [Your LinkedIn Profile URL] | [Your GitHub Profile URL]
+**Contact:** [praveenchalla] | [www.linkedin.com/in/praveen-challa-6043a3276]
